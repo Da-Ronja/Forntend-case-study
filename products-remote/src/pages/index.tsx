@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
+import ProductList from "@/components/ProductList";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <h1>Product Remote</h1>
+        <ProductList />
       </main>
     </>
   );
