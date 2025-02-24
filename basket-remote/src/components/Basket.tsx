@@ -36,12 +36,12 @@ const Basket = () => {
                 <div key={product.product.id}>
                     <img src={product.product.image} alt={product.product.title} style={{ width: "50px", height: "50px", objectFit: "contain" }} />
                     <h3>{product.product.title}</h3>
-                    <p>{product.product.price} kr</p>
+                    <p>${product.product.price}</p>
                     <input 
                         type="number" 
                         name="" 
                         id="" 
-                        value={quantity}
+                        value={product.quantity}
                         onChange={(e) => console.log(e.target.value)}
                     />
                     <button onClick={() => console.log("onClick Basket")}>Remove</button>
