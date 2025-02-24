@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BasketItem } from "./types/basket";
+import { BasketItem } from "../types/basket"; 
 
 const mockProducts: any[] = [
     {
