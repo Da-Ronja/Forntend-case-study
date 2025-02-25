@@ -11,6 +11,7 @@ export default defineConfig({
      name: 'remote_basket',
       exposes: {
         './Basket': './src/components/Basket.tsx',
+        './BasketTypes': './src/types/basket.ts',
       },
       filename: 'remoteEntry.js',
       shared: {
