@@ -5,7 +5,7 @@ const App = () => {
   return (
     <div className="content">
       <h1>Basket Router</h1>
-      <Basket />
+      <Basket basketItems={[]} />
     </div>
   );
 };

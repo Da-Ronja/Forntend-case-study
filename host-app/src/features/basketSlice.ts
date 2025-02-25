@@ -20,28 +20,20 @@ export const basketSlice = createSlice({
     initialState,
     reducers: {
         addItem: (state, action: PayloadAction<Product>) => {
-            console.log("Current state", state.items);
-            console.log("Incoming product", action.payload);
-            
             // First check if the product exists in the basket
             const existingItemIndex = state.items.findIndex((item: BasketItem) => {
-                console.log("Comparing IDs:", item.product.id, action.payload.id);
                 return item.product.id === action.payload.id;
             });
-            console.log("Existing item index", existingItemIndex);
-
+            // If the product exists, update the quantity
             if (existingItemIndex !== -1) {
-                console.log("Updating existing item quantity");
                 state.items[existingItemIndex].quantity += 1;
-            } else {
-                console.log("Converting and adding new item");
+            } else { // If the product does not exist, add it to the basket
                 const basketProduct = convertToBasketProduct(action.payload);
                 state.items.push({
                     product: basketProduct,
                     quantity: 1
                 });
             }
-            console.log("New state", state.items);
         },
     },
 });

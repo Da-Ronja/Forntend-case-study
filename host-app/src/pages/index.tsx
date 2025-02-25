@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../features/basketSlice";
 import { RootState } from "../store";
 import { Product } from "remote_product_types/types/product";
+import { BasketItem } from "remote_basket_types/types/basket";
 
 const Product = dynamic<{ onAddToBasket: (product: Product) => void }>(
   () => import("remote_product/ProductList"),
@@ -11,7 +12,7 @@ const Product = dynamic<{ onAddToBasket: (product: Product) => void }>(
 );
 
 
-const Basket = dynamic(() => import("remote_basket/Basket"), {
+const Basket = dynamic<{ basketItems: BasketItem[] }>(() => import("remote_basket/Basket"), {
   ssr: false,
 });
 
@@ -27,12 +28,7 @@ export default function Home() {
     <>
       <main className={styles.main}>
         <h1>Host App</h1>
-        <ul>
-          {basketItems.map((item, i) => (
-            <li key={item.product.id}>{item.product.title} - ${item.product.price} x {item.quantity}</li>
-          ))}
-        </ul>
-        <Basket />
+        <Basket basketItems={basketItems} />
         <Product onAddToBasket={handleAddToBasket} />
       </main>
     </>
