@@ -35,11 +35,14 @@ export const basketSlice = createSlice({
                 });
             }
         },
+        removeAllItems: (state, action: PayloadAction<Product>) => {
+            state.items = state.items.filter((item: BasketItem) => item.product.id !== action.payload.id);
+        },
     },
 });
 
 // Export actions
-export const { addItem } = basketSlice.actions;
+export const { addItem, removeAllItems } = basketSlice.actions;
 
 // Export reducer
 export default basketSlice.reducer;
