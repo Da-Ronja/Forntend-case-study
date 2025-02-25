@@ -1,8 +1,9 @@
 import { BasketItem } from "../types/basket"; 
 
-const Basket = ({ basketItems, onRemoveAllFromBasket }: { 
+const Basket = ({ basketItems, onRemoveAllFromBasket, onChangeQuantity }: { 
     basketItems: BasketItem[],
-    onRemoveAllFromBasket: (productId: number) => void
+    onRemoveAllFromBasket: (productId: number) => void,
+    onChangeQuantity: (productId: number, quantity: number) => void
   }) => {
     
     return (
@@ -19,10 +20,13 @@ const Basket = ({ basketItems, onRemoveAllFromBasket }: {
                     <p>${product.product.price}</p>
                     <input 
                         type="number" 
-                        name="" 
-                        id="" 
                         value={product.quantity}
-                        onChange={(e) => console.log(e.target.value)}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            const newQuantity = value === '' ? product.quantity : Math.max(1, parseInt(value) || 1);
+                            onChangeQuantity(product.product.id, newQuantity);
+                        }}
+                        min={1}
                     />
                     <button onClick={() => onRemoveAllFromBasket(product.product.id)}>Remove</button>
                 </div>

@@ -38,11 +38,20 @@ export const basketSlice = createSlice({
         removeAllItems: (state, action: PayloadAction<Product>) => {
             state.items = state.items.filter((item: BasketItem) => item.product.id !== action.payload.id);
         },
+        changeQuantity: (state, action: PayloadAction<{ productId: number, quantity: number }>) => {
+            const { productId, quantity } = action.payload;
+            const item = state.items.find((item: BasketItem) => item.product.id === productId);
+            if (item) {
+                // Ensure quantity is at least 1
+                item.quantity = Math.max(1, quantity);
+            }
+        }
+
     },
 });
 
 // Export actions
-export const { addItem, removeAllItems } = basketSlice.actions;
+export const { addItem, removeAllItems, changeQuantity } = basketSlice.actions;
 
 // Export reducer
 export default basketSlice.reducer;
