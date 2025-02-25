@@ -1,7 +1,7 @@
 import { NextFederationPlugin } from '@module-federation/nextjs-mf';
+import { NextConfig } from 'next';
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   reactStrictMode: true,
   webpack(config: { plugins: NextFederationPlugin[]; },options: { isServer: any; } ){
     config.plugins.push(
@@ -10,6 +10,7 @@ const nextConfig = {
         filename: 'static/chunks/remoteEntry.js',
         remotes: {
           'remote_product': `remote_product@http://localhost:3001/_next/static/${options.isServer ? 'ssr' : 'chunks'}/remoteEntry.js`,
+          'remote_product_types': `remote_product@http://localhost:3001/_next/static/${options.isServer ? 'ssr' : 'chunks'}/remoteEntry.js`,
           'remote_basket': `remote_basket@http://localhost:3002/remoteEntry.js`,
         },
         shared: {},

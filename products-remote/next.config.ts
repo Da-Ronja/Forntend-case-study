@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
         filename: 'static/chunks/remoteEntry.js',
         exposes: {
           './ProductList': './src/components/ProductListWithProvider.tsx',
+          './ProductTypes': './src/types/product.ts',
         },
         shared: {
           '@reduxjs/toolkit': {

@@ -6,7 +6,7 @@ import { useGetProductsQuery } from "../services/productsApi";
 
 
 //const ProductList = ({products, onAddToCart}: ProductListProps) => {
-const ProductList = () => {
+const ProductList = ({onAddToBasket}: {onAddToBasket: (product: Product) => void}) => {
 const { data: products, error, isLoading } = useGetProductsQuery();
 
     if (isLoading) return <div>Loading...</div>;
@@ -34,7 +34,7 @@ const { data: products, error, isLoading } = useGetProductsQuery();
                             description={product.description.length > 100 ? product.description.substring(0, 70) + "..." : product.description} 
                             />
                             <p>Price: ${product.price}</p>
-                            <Button value="large" block onClick={() => console.log("onClick ProductList")} >Add to Cart</Button>
+                            <Button value="large" block onClick={() => onAddToBasket(product)} >Add to Cart</Button>
                         </Card>
                     </div>
                 ))}
@@ -56,4 +56,4 @@ export default ProductList;
                             <p>{product.price}kr</p>
                         </div>
                         <button onClick={() => console.log("onClick ProductList")}>Add</button> */}
-                        {/* <button onClick={() => onAddToCart(product)}>Add to Cart</button> */}
+                        {/* <button onClick={() => >Add to Cart</button> */}
