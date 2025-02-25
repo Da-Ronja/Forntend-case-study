@@ -1,8 +1,10 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import dynamic from "next/dynamic";
-import Product from "remote_product/ProductList";
 
+const Product = dynamic(() => import("remote_product/ProductList"), {
+  ssr: false,
+});
 
 const Basket = dynamic(() => import("remote_basket/Basket"), {
   ssr: false,
@@ -18,7 +20,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <h1>Host App</h1>
-         <Basket /> 
+        <Basket />
         <Product />
       </main>
     </>

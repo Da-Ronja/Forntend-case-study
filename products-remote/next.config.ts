@@ -1,26 +1,31 @@
-import { NextFederationPlugin } from '@module-federation/nextjs-mf';
+import { NextConfig } from 'next';
+const NextFederationPlugin = require('@module-federation/nextjs-mf');
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   reactStrictMode: true,
-  webpack(config: { plugins: NextFederationPlugin[]; },options: { isServer: any; } ){
+  webpack(config, options) {
     config.plugins.push(
       new NextFederationPlugin({
         name: 'remote_product',
         filename: 'static/chunks/remoteEntry.js',
         exposes: {
-          "./ProductList": './src/components/ProductList.tsx',
+          './ProductList': './src/components/ProductListWithProvider.tsx',
         },
-        shared: {},
-        extraOptions: {
-          exposePages: true,
-          enableImageLoaderFix: true,
-          enableUrlLoaderFix: true,
+        shared: {
+          '@reduxjs/toolkit': {
+            singleton: true,
+            requiredVersion: false,
+          },
+          'react-redux': {
+            singleton: true,
+            requiredVersion: false,
+          },
         },
       })
-    )
-    return config
-  }
+    );
+    return config;
+  },
 };
 
 export default nextConfig;
